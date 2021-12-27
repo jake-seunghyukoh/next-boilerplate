@@ -1,4 +1,5 @@
-import { Post, PrismaClient } from "@prisma/client";
+import { Post } from "@prisma/client";
+import { getAllPosts } from "@services/posts.service";
 
 type PostsProps = {
 	posts: Post[];
@@ -17,8 +18,7 @@ export default function Posts({ posts }: PostsProps) {
 }
 
 export async function getServerSideProps() {
-	const prisma = new PrismaClient();
-	const posts = await prisma.post.findMany();
+	const posts = await getAllPosts();
 
 	return { props: { posts: posts } };
 }
