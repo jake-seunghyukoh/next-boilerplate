@@ -1,9 +1,9 @@
 import { Post } from "@prisma/client";
 import { getAllPosts } from "@services/posts.service";
 
-type PostsProps = {
+interface PostsProps {
 	posts: Post[];
-};
+}
 
 export default function Posts({ posts }: PostsProps) {
 	return (
