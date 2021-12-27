@@ -1,4 +1,4 @@
-import Modal from "@components/modal";
+import Modal from "@components/modals/modal";
 import { useState } from "react";
 
 export default function ModalPage() {
