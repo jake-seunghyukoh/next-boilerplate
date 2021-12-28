@@ -19,10 +19,11 @@ function App({
 	// Use the layout defined at the page level, if available
 	const getLayout = Component.getLayout ?? ((page) => page);
 
-	return getLayout(
+	return (
 		<SessionProvider session={session}>
-			<Component {...pageProps} />
-		</SessionProvider>,
+			getLayout(
+			<Component {...pageProps} />, )
+		</SessionProvider>
 	);
 }
 
