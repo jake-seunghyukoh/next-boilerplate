@@ -21,8 +21,7 @@ function App({
 
 	return (
 		<SessionProvider session={session}>
-			getLayout(
-			<Component {...pageProps} />, )
+			{getLayout(<Component {...pageProps} />)}
 		</SessionProvider>
 	);
 }
