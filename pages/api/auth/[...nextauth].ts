@@ -1,9 +1,14 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const monthInSeconds = 30 * 24 * 60 * 60;
 
+const prisma = new PrismaClient();
+
 export default NextAuth({
+	adapter: PrismaAdapter(prisma),
 	secret: process.env.SECRET,
 	providers: [
 		// OAuth authentication providers
