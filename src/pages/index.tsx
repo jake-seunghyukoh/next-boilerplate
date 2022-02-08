@@ -86,12 +86,6 @@ const _getServerSideProps = wrapper.getServerSideProps(function ({ dispatch }) {
     if (user) dispatch(exampleLogin());
     else {
       dispatch(exampleLogout());
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/login',
-        },
-      };
     }
     return { props: {} };
   };

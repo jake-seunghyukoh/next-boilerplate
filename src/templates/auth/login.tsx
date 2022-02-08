@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { goSignUp } from '@redux/slices/loginPage';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -8,6 +8,8 @@ export default function LoginTemplate() {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const { expired, redirectURL } = useAppSelector((state) => state.loginPage);
+
   function login(event: BaseSyntheticEvent) {
     event.preventDefault();
     const username = event.target.username.value;
@@ -16,7 +18,7 @@ export default function LoginTemplate() {
     axios
       .post('/api/login', { username, password })
       .then(async () => {
-        router.push('/');
+        router.push(redirectURL ?? '/');
       })
       .catch(() => {
         alert('로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.');
@@ -61,6 +63,9 @@ export default function LoginTemplate() {
               로그인
             </button>
           </form>
+          <span className="my-2 text-sm text-[#FF6969]" hidden={!expired}>
+            인증이 만료되었습니다. 다시 로그인해주세요
+          </span>
           <div className="w-full mt-2 flex justify-end">
             <button
               onClick={() => dispatch(goSignUp())}
