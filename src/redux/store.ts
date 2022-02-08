@@ -9,9 +9,11 @@ import {
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { Reducer } from 'react';
 import AuthReducer, { authSlice } from './slices/auth';
+import LoginReducer, { loginSlice } from './slices/loginPage';
 
 const combinedReducer = combineReducers({
   [authSlice.name]: AuthReducer,
+  [loginSlice.name]: LoginReducer,
 });
 
 const reducer: Reducer<any, AnyAction> | ReducersMapObject<any, AnyAction> = (
