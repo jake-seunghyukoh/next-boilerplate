@@ -18,6 +18,7 @@
     "paths": {
       "@public/*": ["public/*"],
       "@pages/*": ["src/pages/*"],
+      "@redux/*": ["src/redux/*"],
       "@styles/*": ["src/styles/*"],
       "@components/*": ["src/components/*"],
       "@templates/*": ["src/templates/*"],
