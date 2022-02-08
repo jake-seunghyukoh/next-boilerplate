@@ -1,18 +1,21 @@
+import { useAppSelector } from '@redux/hooks';
+import {
+  exampleLogin,
+  exampleLogout,
+  selectAuthenticated,
+} from '@redux/slices/auth';
+import { wrapper } from '@redux/store';
 import { useUser } from '@services/api/hooks/user';
 import { withSessionSsr } from '@session/index';
 import { logout } from '@utils/logout';
-import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
+import Loading from 'react-loading';
 import { useSWRConfig } from 'swr';
 
-export function Home(): ReactNode {
-  const router = useRouter();
-  const mutate = useSWRConfig().mutate;
-  const { isLoading, isError } = useUser();
-
+export default function Home(): ReactNode {
   function handleLogout() {
     logout(() => {
       mutate('/api/user');
@@ -20,17 +23,28 @@ export function Home(): ReactNode {
     });
   }
 
-  if (isLoading) {
+  const router = useRouter();
+  const mutate = useSWRConfig().mutate;
+
+  const authenticated = useAppSelector(selectAuthenticated);
+  const { isLoading, isError } = useUser();
+
+  if (authenticated && isLoading) {
+    // Authenticated and loading
     return (
       <div>
         <Head>
           <title>Home</title>
         </Head>
+        <div>
+          <main className="min-h-screen w-screen flex items-center justify-center">
+            <Loading type="spinningBubbles" color="#000000" />
+          </main>
+        </div>
       </div>
     );
-  }
-
-  if (isError) {
+  } else if (!authenticated || isError) {
+    // Not authenticated or error occurred
     return (
       <div>
         <Head>
@@ -47,6 +61,7 @@ export function Home(): ReactNode {
     );
   }
 
+  // Happy case
   return (
     <div>
       <Head>
@@ -64,15 +79,22 @@ export function Home(): ReactNode {
   );
 }
 
+const _getServerSideProps = wrapper.getServerSideProps(function ({ dispatch }) {
+  return async ({ req }) => {
+    const user = req.session?.user;
+    // TODO : Validate user Ex) Access token validity
+    if (user) dispatch(exampleLogin());
+    else {
+      dispatch(exampleLogout());
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      };
+    }
+    return { props: {} };
+  };
+});
+
 export const getServerSideProps = withSessionSsr(_getServerSideProps);
-
-async function _getServerSideProps(context: GetServerSidePropsContext) {
-  const user = context.req.session?.user;
-
-  if (user) console.log('유저가 존재합니다.');
-  else console.log('유저가 존재하지 않습니다.');
-
-  return { props: {} };
-}
-
-export default Home;
