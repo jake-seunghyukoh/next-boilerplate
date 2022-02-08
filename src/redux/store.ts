@@ -1,21 +1,45 @@
-import authReducer from '@redux/slices/auth';
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import {
+  Action,
+  AnyAction,
+  combineReducers,
+  configureStore,
+  ReducersMapObject,
+  ThunkAction,
+} from '@reduxjs/toolkit';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { Reducer } from 'react';
+import AuthReducer, { authSlice } from './slices/auth';
+
+const combinedReducer = combineReducers({
+  [authSlice.name]: AuthReducer,
+});
+
+const reducer: Reducer<any, AnyAction> | ReducersMapObject<any, AnyAction> = (
+  state,
+  action,
+) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload, // apply delta from hydration
+    };
+    if (state.count) nextState.count = state.count; // preserve count value on client side navigation
+    return nextState;
+  } else {
+    return combinedReducer(state, action);
+  }
+};
 
 export function makeStore() {
   return configureStore({
-    reducer: {
-      authentication: authReducer,
-    },
+    reducer,
+    devTools: true,
   });
 }
 
-const store = makeStore();
-
 export type AppStore = ReturnType<typeof makeStore>;
 
-export type AppState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
+export type AppState = ReturnType<AppStore['getState']>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -24,4 +48,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export default store;
+export const wrapper = createWrapper<AppStore>(makeStore);
