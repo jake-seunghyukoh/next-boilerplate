@@ -8,8 +8,8 @@ import {
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { Reducer } from 'react';
-import AuthReducer, { authSlice } from './slices/auth';
-import LoginReducer, { loginSlice } from './slices/loginPage';
+import AuthReducer, { authSlice } from './modules/auth/auth.reducer';
+import LoginReducer, { loginSlice } from './modules/login/login.reducer';
 
 const combinedReducer = combineReducers({
   [authSlice.name]: AuthReducer,
@@ -35,13 +35,15 @@ const reducer: Reducer<any, AnyAction> | ReducersMapObject<any, AnyAction> = (
 export function makeStore() {
   return configureStore({
     reducer,
-    devTools: true,
+    devTools: process.env.NODE_ENV !== 'production',
   });
 }
 
 export type AppStore = ReturnType<typeof makeStore>;
 
 export type AppState = ReturnType<AppStore['getState']>;
+
+export type AppDispatch = any;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

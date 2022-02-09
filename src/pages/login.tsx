@@ -1,13 +1,13 @@
 import { useAppSelector } from '@redux/hooks';
+import LoginTemplate from '@components/container/login';
+import SignUpTemplate from '@components/container/signUp';
 import {
   LoginEnums,
   selectLoginPageState,
   setQuery,
-} from '@redux/slices/loginPage';
+} from '@redux/modules/login/login.reducer';
 import { wrapper } from '@redux/store';
 import { withSessionSsr } from '@session/index';
-import LoginTemplate from '@templates/auth/login';
-import SignUpTemplate from '@templates/auth/signUp';
 import Head from 'next/head';
 
 export default function LoginPage() {

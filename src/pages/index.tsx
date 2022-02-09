@@ -3,7 +3,7 @@ import {
   exampleLogin,
   exampleLogout,
   selectAuthenticated,
-} from '@redux/slices/auth';
+} from '@redux/modules/auth/auth.reducer';
 import { wrapper } from '@redux/store';
 import { useUser } from '@services/api/hooks/user';
 import { withSessionSsr } from '@session/index';
