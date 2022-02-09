@@ -1,8 +1,25 @@
+import { passwordChecker } from '@utils/stringCheckers';
 import { BaseSyntheticEvent } from 'react';
 
 export default function SignUpForm() {
+  const passwordMinLength = 8;
+  const passwordMaxLength = 12;
+
   function signUp(event: BaseSyntheticEvent) {
     event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+    const validator = event.target.validator.value;
+
+    if (!passwordChecker(password)) {
+      alert('비밀번호가 규칙에 맞지 않습니다. 다시 입력해주세요.');
+      return;
+    } else if (password !== validator) {
+      alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+      return;
+    }
+
+    alert('현재 회원가입 기능이 제한되어 있습니다.\n관리자에게 문의하세요.');
   }
 
   return (
@@ -16,9 +33,10 @@ export default function SignUpForm() {
           <input
             name="username"
             type="text"
-            placeholder="ID를 입력해주세요"
+            placeholder="아이디를 입력해주세요"
             required
-            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm"
+            autoFocus
+            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm invalid:border-2 invalid:border-[#FF6969]"
           />
         </div>
         <div className="w-full flex flex-col items-start space-y-2">
@@ -26,9 +44,10 @@ export default function SignUpForm() {
           <input
             name="password"
             type="password"
-            placeholder="비밀번호를 입력해주세요"
-            required
-            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm"
+            placeholder="비밀번호를 입력해주세요 (8~12자)"
+            minLength={passwordMinLength}
+            maxLength={passwordMaxLength}
+            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm invalid:border-2 invalid:border-[#FF6969]"
           />
         </div>
         <div className="w-full flex flex-col items-start space-y-2">
@@ -37,8 +56,12 @@ export default function SignUpForm() {
             name="validator"
             type="password"
             placeholder="비밀번호를 다시 입력해주세요"
-            required
-            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm"
+            minLength={passwordMinLength}
+            maxLength={passwordMaxLength}
+            onPaste={(event) => {
+              event.preventDefault();
+            }}
+            className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm invalid:border-2 invalid:border-[#FF6969]"
           />
         </div>
       </div>

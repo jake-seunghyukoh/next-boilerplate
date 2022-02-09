@@ -35,8 +35,9 @@ export default function LoginForm({ redirectURL }: componentProps) {
           <input
             name="username"
             type="text"
-            placeholder="ID를 입력해주세요"
+            placeholder="아이디를 입력해주세요"
             required
+            autoFocus
             className="w-full h-10 px-5 border-[1px] border-[#4B4B4B] rounded text-sm"
           />
         </div>
