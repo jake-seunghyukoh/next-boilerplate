@@ -1,4 +1,4 @@
-import { withSessionRoute } from '@session/index';
+import { withSessionRoute } from '@session/withIron';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default withSessionRoute(logoutRoute);

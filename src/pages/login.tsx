@@ -7,7 +7,7 @@ import {
   setQuery,
 } from '@redux/modules/login/login.reducer';
 import { wrapper } from '@redux/store';
-import { withSessionSsr } from '@session/index';
+import { withSessionSsr } from '@session/withIron';
 import Head from 'next/head';
 
 export default function LoginPage() {

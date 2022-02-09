@@ -1,7 +1,7 @@
 import { AuthInterface } from '@interfaces/auth';
 import { SessionUserEntity } from '@interfaces/session';
 import { get, post } from '@services/api';
-import { withSessionRoute } from '@session/index';
+import { withSessionRoute } from '@session/withIron';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default withSessionRoute(loginRoute);

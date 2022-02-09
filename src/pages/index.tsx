@@ -6,7 +6,7 @@ import {
 } from '@redux/modules/auth/auth.reducer';
 import { wrapper } from '@redux/store';
 import { useUser } from '@services/api/hooks/user';
-import { withSessionSsr } from '@session/index';
+import { withSessionSsr } from '@session/withIron';
 import { logout } from '@utils/logout';
 import Head from 'next/head';
 import Link from 'next/link';
