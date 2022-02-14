@@ -1,4 +1,4 @@
-import DefaultLayout from '@components/presentational/Layout';
+import DefaultLayout from '@components/container/Layout';
 import { useAppSelector } from '@redux/hooks';
 import { selectAuthenticated } from '@redux/modules/auth/auth.reducer';
 import { useUser } from '@services/api/hooks/user';

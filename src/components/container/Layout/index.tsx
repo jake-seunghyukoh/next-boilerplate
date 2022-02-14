@@ -1,5 +1,5 @@
 import { ReactChild } from 'react';
-import Footer from '../Footer/footer';
+import Footer from '../../presentational/Footer/footer';
 import NavigationBar from '../NavBar/navigationBar';
 import LoadingLayout from './loading';
 

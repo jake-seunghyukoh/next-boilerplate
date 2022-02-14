@@ -1,6 +1,6 @@
 import { useAppSelector } from '@redux/hooks';
-import LoginTemplate from '@components/container/login';
-import SignUpTemplate from '@components/container/signUp';
+import LoginTemplate from '@components/container/Template/login';
+import SignUpTemplate from '@components/container/Template/signUp';
 import {
   LoginEnums,
   selectLoginPageState,

@@ -1,5 +1,5 @@
 import Loading from 'react-loading';
-import Footer from '../Footer/footer';
+import Footer from '../../presentational/Footer/footer';
 import NavigationBar from '../NavBar/navigationBar';
 
 interface layoutProps {

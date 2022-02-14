@@ -1,4 +1,4 @@
-import HomeTemplate from '@components/container/home';
+import HomeTemplate from '@components/container/Template/home';
 import { exampleLogin, exampleLogout } from '@redux/modules/auth/auth.reducer';
 import { wrapper } from '@redux/store';
 import { withSessionSsr } from '@session/withIron';
