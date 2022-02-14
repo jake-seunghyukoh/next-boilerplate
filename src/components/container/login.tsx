@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { goSignUp } from '@redux/modules/login/login.reducer';
-import LoginForm from '../presentational/loginFrom';
+import LoginForm from '../presentational/Form/loginFrom';
 
 export default function LoginTemplate() {
   const dispatch = useAppDispatch();

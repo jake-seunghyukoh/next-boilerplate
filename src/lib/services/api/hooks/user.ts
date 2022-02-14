@@ -11,6 +11,6 @@ export function useUser() {
   return {
     user: data?.user as SessionUserEntity,
     isLoading: !error && !data,
-    isError: error || !data?.user,
+    isError: !!error,
   };
 }
